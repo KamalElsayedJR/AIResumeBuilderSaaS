@@ -10,6 +10,11 @@
 /appsettings.json
 appsettings.json
 
+**/Migrations
+**/Migrations
+*/Migrations
+/Migrations
+Migrations
 # dotenv files
 .env
 

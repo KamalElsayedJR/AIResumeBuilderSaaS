@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,9 +9,9 @@ namespace AIResumeBuilder.Domain.Enums
 {
     public enum Plan
     {
-        
+        [EnumMember(Value = "Free")]
         Free ,
-        Pro ,
-        Enterprise 
+        [EnumMember(Value = "Pro")]
+        Pro 
     }
 }

@@ -1,0 +1,22 @@
+﻿using AIResumeBuilder.Application.Dtos;
+using AIResumeBuilder.Application.Dtos.Auth;
+using AIResumeBuilder.Application.UseCase.Auth;
+using AIResumeBuilder.Domain.Entities;
+using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AIResumeBuilder.Application.Mapping
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, LoginResponse>();
+        }
+    }
+}
