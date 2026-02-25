@@ -1,7 +1,7 @@
 ﻿using AIResumeBuilder.API.Dtos;
 using AIResumeBuilder.Application.Dtos;
 using AIResumeBuilder.Application.Dtos.Auth;
-using AIResumeBuilder.Application.UseCase.Auth;
+using AIResumeBuilder.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,18 +12,17 @@ namespace AIResumeBuilder.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly RegisterHandler _registerHandler;
-        private readonly LoginHandler _loginHandler;
+        
+        private readonly IAuthService _authService;
 
-        public AuthController(RegisterHandler registerHandler,LoginHandler loginHandler)
+        public AuthController(IAuthService authService)
         {
-            _registerHandler = registerHandler;
-            _loginHandler = loginHandler;
+            _authService = authService;
         }
         [HttpPost("register")]
         public async Task<ActionResult<BaseResponse>> RegisterAsync(RegisterDto request)
         {
-            var response =await _registerHandler.RegisterAsync(request);
+            var response =await _authService.RegisterAsync(request);
             if (response.Success)
             {
                 return Ok(response);
@@ -36,7 +35,7 @@ namespace AIResumeBuilder.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<DataResponse<LoginResponse>>> LoginAsync(LoginRequest request)
         {
-            var response = await _loginHandler.LoginAsync(request.Email, request.Password);
+            var response = await _authService.LoginAsync(request.Email, request.Password);
             if (response.Success)
             {
                 return Ok(response);

@@ -1,8 +1,8 @@
 ﻿using AIResumeBuilder.Application.Interfaces.Repositories;
 using AIResumeBuilder.Application.Interfaces.Services;
 using AIResumeBuilder.Infrastructure.Data;
-using AIResumeBuilder.Infrastructure.Repositories;
-using AIResumeBuilder.Infrastructure.Services;
+using AIResumeBuilder.Infrastructure.Implementation.Repositories;
+using AIResumeBuilder.Infrastructure.Implementation.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

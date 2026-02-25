@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeBuilder.Infrastructure.Services
+namespace AIResumeBuilder.Infrastructure.Implementation.Services
 {
     public class PasswordService : IPasswordService
     {

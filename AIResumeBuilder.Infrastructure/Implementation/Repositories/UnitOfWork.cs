@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeBuilder.Infrastructure.Repositories
+namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -17,6 +17,7 @@ namespace AIResumeBuilder.Infrastructure.Repositories
         {
             _dbContext = dbContext;
             UserRepository = new UserRepository(_dbContext);
+            ResumeRepository = new ResumeRepository(_dbContext);
         }
         public async ValueTask DisposeAsync()
         => await _dbContext.DisposeAsync();
@@ -31,6 +32,8 @@ namespace AIResumeBuilder.Infrastructure.Repositories
             return (IGenericRepository<T>)_repo[type];
         }
         public IUserRepository UserRepository { get;}
+        public IResumeRepository ResumeRepository { get; }
+
         public async Task<int> SaveChangesAsync()
         => await _dbContext.SaveChangesAsync();
     }

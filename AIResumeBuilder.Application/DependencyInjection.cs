@@ -1,5 +1,6 @@
 ﻿using AIResumeBuilder.Application.Mapping;
-using AIResumeBuilder.Application.UseCase.Auth;
+using AIResumeBuilder.Application.Services.Implementation;
+using AIResumeBuilder.Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace AIResumeBuilder.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddScoped<RegisterHandler>();
-            services.AddScoped<LoginHandler>();
+            services.AddScoped<IAuthService,AuthService>();
+            services.AddScoped<IResumeService, ResumeService>();
             return services;
         }
     }

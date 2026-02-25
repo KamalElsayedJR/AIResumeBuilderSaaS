@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIResumeBuilder.Infrastructure.Repositories
+namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
 {
     public class UserRepository : IUserRepository
     {

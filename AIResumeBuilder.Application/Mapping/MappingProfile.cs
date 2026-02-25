@@ -1,6 +1,6 @@
 ﻿using AIResumeBuilder.Application.Dtos;
 using AIResumeBuilder.Application.Dtos.Auth;
-using AIResumeBuilder.Application.UseCase.Auth;
+using AIResumeBuilder.Application.Dtos.Resume;
 using AIResumeBuilder.Domain.Entities;
 using AutoMapper;
 using System;
@@ -17,6 +17,7 @@ namespace AIResumeBuilder.Application.Mapping
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, LoginResponse>();
+            CreateMap<Resume, ResumeDto>().ReverseMap();
         }
     }
 }

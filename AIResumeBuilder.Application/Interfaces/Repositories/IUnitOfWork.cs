@@ -9,6 +9,7 @@ namespace AIResumeBuilder.Application.Interfaces.Repositories
     public interface IUnitOfWork : IAsyncDisposable
     {
         Task<int> SaveChangesAsync();
+        public IResumeRepository ResumeRepository { get; }
         public IUserRepository UserRepository { get; }
         IGenericRepository<T> Repository<T>() where T : class;
     }
