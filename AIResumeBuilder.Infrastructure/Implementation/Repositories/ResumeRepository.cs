@@ -18,8 +18,8 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
             _dbContext = dbContext;
         }
         public async Task<Resume> GetByIdAsync(int ResumeId, int UserId)
-        => await _dbContext.Resumes.FirstOrDefaultAsync(r => r.Id == ResumeId && r.UserId == UserId&&r.IsDeleted==false);
+        => await _dbContext.Resumes.Include(ex=>ex.Experiences).FirstOrDefaultAsync(r => r.Id == ResumeId && r.UserId == UserId&&r.IsDeleted==false);
         public async Task<IEnumerable<Resume>> GetByUser(int UserId)
-        => await _dbContext.Resumes.Where(r => r.UserId == UserId).ToListAsync();                                                        
+        => await _dbContext.Resumes.Include(ex => ex.Experiences).Where(r => r.UserId == UserId).ToListAsync();                                                        
     }
 }

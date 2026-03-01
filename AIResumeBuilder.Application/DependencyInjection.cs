@@ -17,6 +17,7 @@ namespace AIResumeBuilder.Application
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IAuthService,AuthService>();
             services.AddScoped<IResumeService, ResumeService>();
+            services.AddScoped<IResumeExperienceService, ResumeExperienceService>();
             return services;
         }
     }

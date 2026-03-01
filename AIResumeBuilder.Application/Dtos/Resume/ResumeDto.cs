@@ -1,4 +1,5 @@
-﻿using AIResumeBuilder.Domain.Entities;
+﻿using AIResumeBuilder.Application.Dtos.Resume.Experience;
+using AIResumeBuilder.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace AIResumeBuilder.Application.Dtos.Resume
         public int UserId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public ICollection<ExperienceDto> Experiences { get; set; }
     }
 }

@@ -89,7 +89,8 @@ namespace AIResumeBuilder.Application.Services.Implementation
         }
         public async Task<DataResponse<List<ResumeDto>>> GetMyResumesAsync(int UserId)
         {
-            var resumes = (await _uoW.ResumeRepository.GetByUser(UserId)).Where(r=>r.IsDeleted = false);
+            var resumes = (await _uoW.ResumeRepository.GetByUser(UserId))
+                        .Where(r=>r.IsDeleted == false);
             if (resumes is null)
             {
                 return new DataResponse<List<ResumeDto>>()
@@ -99,6 +100,15 @@ namespace AIResumeBuilder.Application.Services.Implementation
                     Data = null
                 };
             }
+            //if (resumes.All(r=>r.IsDeleted == true))
+            //{
+            //    return new DataResponse<List<ResumeDto>>()
+            //    {
+            //        Success = false,
+            //        Message = $"{resumes.Where(r => r.IsDeleted == true).Count()} IsDeleted - No active resumes found for you",
+            //        Data = null
+            //    };
+            //}
             return new DataResponse<List<ResumeDto>>()
             {
                 Success = true,

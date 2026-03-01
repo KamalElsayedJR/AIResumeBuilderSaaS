@@ -33,6 +33,10 @@ namespace AIResumeBuilder.Infrastructure.Data.Configurations
             builder.Property(r => r.UpdatedAt)
                 .HasDefaultValueSql("GETUTCDATE()")
                 .ValueGeneratedOnAddOrUpdate();
+            builder.HasMany(r => r.Experiences)
+                .WithOne(e => e.Resume)
+                .HasForeignKey(e => e.ResumeId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
