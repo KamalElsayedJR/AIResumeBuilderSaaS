@@ -20,7 +20,9 @@ namespace AIResumeBuilder.Application.Mapping
             CreateMap<User, LoginResponse>();
             CreateMap<Resume, ResumeDto>().ReverseMap();
             CreateMap<AddExperienceDto, Experience>();
+            CreateMap<UpdateExperienceDto, Experience>();
             CreateMap<Experience, ExperienceDto>().ReverseMap();
+
         }
     }
 }

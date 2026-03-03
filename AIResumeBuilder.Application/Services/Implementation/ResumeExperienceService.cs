@@ -127,9 +127,64 @@ namespace AIResumeBuilder.Application.Services.Implementation
             };
         }
 
-        public Task<DataResponse<ExperienceDto>> UpdateExperienceAsync(UpdateExperienceDto dto, int ResumeId, int UserId)
+        public async Task<BaseResponse> DeleteExperienceAsync(int experienceId, int ResumeId, int UserId)
         {
-            throw new NotImplementedException();
+            var ex = await _uoW.ExperienceRepository.GetExperienceByIdForSpecificResumeAsync(experienceId, ResumeId, UserId);
+            if (ex is null)
+            {
+                return new BaseResponse()
+                {
+                    Success = false,
+                    Message = "Experience Not Found"
+                };
+            }
+            _uoW.Repository<Experience>().Delete(ex);
+            var result = await _uoW.SaveChangesAsync();
+            if (result > 0) 
+            {
+                return new BaseResponse()
+                {
+                    Success = true,
+                    Message = "Experience Deletd Successfuly"
+                };
+            }
+            return new BaseResponse()
+            {
+                Success = false,
+                Message = "Cant Delete Experience"
+            };
         }
+
+        public async Task<DataResponse<ExperienceDto>> UpdateExperienceAsync(UpdateExperienceDto dto, int ExperienceId, int ResumeId, int UserId)
+        {
+            var ex = await _uoW.ExperienceRepository.GetExperienceByIdForSpecificResumeAsync(ExperienceId, ResumeId, UserId);
+            if (ex is null)
+            {
+                return new DataResponse<ExperienceDto>()
+                {
+                    Success = false,
+                    Message = "Experience not found",
+                };
+            }
+            _mapper.Map(dto, ex);
+            _uoW.Repository<Experience>().Update(ex);
+            var result = await _uoW.SaveChangesAsync(); 
+            if (result > 0)
+            {
+                var exDto = _mapper.Map<Experience, ExperienceDto>(ex);
+                return new DataResponse<ExperienceDto>()
+                {
+                    Success = true,
+                    Message = "Experience updated successfully",
+                    Data = exDto,
+                };
+            }
+            return new DataResponse<ExperienceDto>()
+            {
+                Success = false,
+                Message = "Failed to update experience",
+            };
+        }
+
     }
 }

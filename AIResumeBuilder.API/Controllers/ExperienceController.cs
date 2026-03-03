@@ -34,5 +34,25 @@ namespace AIResumeBuilder.API.Controllers
                 return BadRequest(response);
             }
         }
+        [HttpPut("{ResumeId}/{ExperienceId}/experience")]
+        public async Task<ActionResult<DataResponse<ExperienceDto>>> UpdateExperience(UpdateExperienceDto dto, [FromRoute] int ResumeId, int ExperienceId)
+        {
+            int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int UserId);
+            var Response = await _rExperienceService.UpdateExperienceAsync(dto, ExperienceId, ResumeId, UserId);
+            if (Response.Success)
+                return Ok(Response);
+            
+            return BadRequest(Response);
+            
+        }
+        [HttpDelete("{ResumeId}/{ExperienceId}/experience")]
+        public async Task<ActionResult<BaseResponse>> DeleteExperience(int ExperienceId,int ResumeId)
+        {
+            int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier),out int UserId);
+            var response = await _rExperienceService.DeleteExperienceAsync(ExperienceId, ResumeId, UserId);
+            if (response.Success) 
+                return Ok(response);
+            return BadRequest(response);
+        }
     }
 }

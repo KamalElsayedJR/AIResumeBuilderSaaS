@@ -18,6 +18,7 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
             _dbContext = dbContext;
             UserRepository = new UserRepository(_dbContext);
             ResumeRepository = new ResumeRepository(_dbContext);
+            ExperienceRepository = new ExperienceRepository(_dbContext);
         }
         public async ValueTask DisposeAsync()
         => await _dbContext.DisposeAsync();
@@ -33,6 +34,7 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
         }
         public IUserRepository UserRepository { get;}
         public IResumeRepository ResumeRepository { get; }
+        public IExperienceRepository ExperienceRepository { get; }
 
         public async Task<int> SaveChangesAsync()
         => await _dbContext.SaveChangesAsync();
