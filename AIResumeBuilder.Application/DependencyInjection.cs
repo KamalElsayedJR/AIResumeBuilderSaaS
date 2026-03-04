@@ -1,4 +1,5 @@
-﻿using AIResumeBuilder.Application.Mapping;
+﻿using AIResumeBuilder.Application.Interfaces.Repositories;
+using AIResumeBuilder.Application.Mapping;
 using AIResumeBuilder.Application.Services.Implementation;
 using AIResumeBuilder.Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace AIResumeBuilder.Application
             services.AddScoped<IAuthService,AuthService>();
             services.AddScoped<IResumeService, ResumeService>();
             services.AddScoped<IResumeExperienceService, ResumeExperienceService>();
+            services.AddScoped<IResumeSkillService, ResumeSkillService>();
             return services;
         }
     }

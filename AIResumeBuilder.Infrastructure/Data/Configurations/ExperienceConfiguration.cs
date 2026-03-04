@@ -25,7 +25,6 @@ namespace AIResumeBuilder.Infrastructure.Data.Configurations
                 .HasForeignKey(e=>e.ResumeId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.Property(e=>e.EmploymentType).IsRequired(false).HasConversion(et=>et.ToString(),et=> (EmploymentType)Enum.Parse(typeof(EmploymentType),et));
-
         }
     }
 }

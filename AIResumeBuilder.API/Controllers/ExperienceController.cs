@@ -34,7 +34,7 @@ namespace AIResumeBuilder.API.Controllers
                 return BadRequest(response);
             }
         }
-        [HttpPut("{ResumeId}/{ExperienceId}/experience")]
+        [HttpPut("{ResumeId}/experience/{ExperienceId}")]
         public async Task<ActionResult<DataResponse<ExperienceDto>>> UpdateExperience(UpdateExperienceDto dto, [FromRoute] int ResumeId, int ExperienceId)
         {
             int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int UserId);
@@ -45,7 +45,7 @@ namespace AIResumeBuilder.API.Controllers
             return BadRequest(Response);
             
         }
-        [HttpDelete("{ResumeId}/{ExperienceId}/experience")]
+        [HttpDelete("{ResumeId}/experience/{ExperienceId}")]
         public async Task<ActionResult<BaseResponse>> DeleteExperience(int ExperienceId,int ResumeId)
         {
             int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier),out int UserId);
@@ -54,5 +54,6 @@ namespace AIResumeBuilder.API.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
+
     }
 }

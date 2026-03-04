@@ -16,5 +16,7 @@ namespace AIResumeBuilder.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; }
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
+        public ICollection<Skill> Skills { get; set; } = new List<Skill>();
+        public ICollection<Education> Educations { get; set; } = new List<Education>();
     }
 }
