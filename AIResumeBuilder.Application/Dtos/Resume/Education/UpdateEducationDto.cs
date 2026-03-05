@@ -8,6 +8,7 @@ namespace AIResumeBuilder.Application.Dtos.Resume.Education
 {
     public class UpdateEducationDto
     {
+
         public string InstitutionName { get; set; }
         public string Degree { get; set; }
         public string FieldOfStudy { get; set; }

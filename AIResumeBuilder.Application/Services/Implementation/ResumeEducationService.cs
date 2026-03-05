@@ -51,7 +51,6 @@ namespace AIResumeBuilder.Application.Services.Implementation
                 Message = "Failed to add education."
             };
         }
-
         public async Task<BaseResponse> DeleteEducationAsync(int EducationId, int ResumeId, int UserId)
         {
             var education  = await _uoW.EducationRepository.GetEducationByIdForResumeAndUser(EducationId,ResumeId,UserId);
@@ -79,7 +78,6 @@ namespace AIResumeBuilder.Application.Services.Implementation
                 Message = "Failed to delete education."
             };
         }
-
         public async Task<DataResponse<EducationDto>> UpdateEducationAsync(UpdateEducationDto dto, int EductionId, int ResumeId, int UserId)
         {
             var education = await _uoW.EducationRepository.GetEducationByIdForResumeAndUser(EductionId, ResumeId, UserId);
