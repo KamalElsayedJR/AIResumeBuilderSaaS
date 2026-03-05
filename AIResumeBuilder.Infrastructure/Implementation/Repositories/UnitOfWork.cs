@@ -20,6 +20,7 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
             ResumeRepository = new ResumeRepository(_dbContext);
             ExperienceRepository = new ExperienceRepository(_dbContext);
             SkillRepositroy = new SkillRepository(_dbContext);
+            EducationRepository = new EducationRepository(_dbContext);
         }
         public async ValueTask DisposeAsync()
         => await _dbContext.DisposeAsync();
@@ -33,11 +34,11 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
             }
             return (IGenericRepository<T>)_repo[type];
         }
+        public IEducationRepository EducationRepository { get; set; }
         public IUserRepository UserRepository { get;}
         public IResumeRepository ResumeRepository { get; }
         public IExperienceRepository ExperienceRepository { get; }
         public ISkillRepositroy SkillRepositroy { get; }
-
         public async Task<int> SaveChangesAsync()
         => await _dbContext.SaveChangesAsync();
     }

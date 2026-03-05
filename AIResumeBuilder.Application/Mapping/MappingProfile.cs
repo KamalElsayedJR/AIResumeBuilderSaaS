@@ -1,6 +1,7 @@
 ﻿using AIResumeBuilder.Application.Dtos;
 using AIResumeBuilder.Application.Dtos.Auth;
 using AIResumeBuilder.Application.Dtos.Resume;
+using AIResumeBuilder.Application.Dtos.Resume.Education;
 using AIResumeBuilder.Application.Dtos.Resume.Experience;
 using AIResumeBuilder.Application.Dtos.Resume.Skill;
 using AIResumeBuilder.Domain.Entities;
@@ -29,6 +30,10 @@ namespace AIResumeBuilder.Application.Mapping
             CreateMap<AddSkillDto, Skill>();
             CreateMap<UpdateSkillDto, Skill>();
             CreateMap<Skill, SkillDto>();
+
+            CreateMap<AddEducationDto, Education>();
+            CreateMap<UpdateEducationDto, Education>();
+            CreateMap<Education, EducationDto>().ReverseMap();
         }
     }
 }

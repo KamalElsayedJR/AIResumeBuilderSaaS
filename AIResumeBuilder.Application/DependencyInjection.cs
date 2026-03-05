@@ -20,6 +20,7 @@ namespace AIResumeBuilder.Application
             services.AddScoped<IResumeService, ResumeService>();
             services.AddScoped<IResumeExperienceService, ResumeExperienceService>();
             services.AddScoped<IResumeSkillService, ResumeSkillService>();
+            services.AddScoped<IResumeEducationService, ResumeEducationService>();
             return services;
         }
     }

@@ -27,14 +27,15 @@ namespace AIResumeBuilder.API.Controllers
             if (response.Success)
             {
                 return Ok(response);
-            };
+            }
+            ;
             return BadRequest(response);
         }
         [HttpPut("{ResumeId}/skill/{SkillId}")]
         public async Task<ActionResult<DataResponse<SkillDto>>> UpdateSkill(UpdateSkillDto dto, int ResumeId, int SkillId)
         {
             int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int UserId);
-            var respone = await _rSkillService.UpdateSkillAsync(dto, ResumeId, SkillId,UserId);
+            var respone = await _rSkillService.UpdateSkillAsync(dto, ResumeId, SkillId, UserId);
             if (respone.Success)
             {
                 return Ok(respone);
@@ -53,4 +54,5 @@ namespace AIResumeBuilder.API.Controllers
             return BadRequest(response);
 
         }
+    }
 }

@@ -13,6 +13,7 @@ namespace AIResumeBuilder.Application.Interfaces.Repositories
         public IResumeRepository ResumeRepository { get; }
         public IUserRepository UserRepository { get; }
         public ISkillRepositroy SkillRepositroy { get; }
+        public IEducationRepository EducationRepository { get; set; }
         IGenericRepository<T> Repository<T>() where T : class;
     }
 }
