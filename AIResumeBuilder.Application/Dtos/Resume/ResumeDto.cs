@@ -1,4 +1,6 @@
-﻿using AIResumeBuilder.Application.Dtos.Resume.Experience;
+﻿using AIResumeBuilder.Application.Dtos.Resume.Education;
+using AIResumeBuilder.Application.Dtos.Resume.Experience;
+using AIResumeBuilder.Application.Dtos.Resume.Skill;
 using AIResumeBuilder.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,5 +19,7 @@ namespace AIResumeBuilder.Application.Dtos.Resume
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public ICollection<ExperienceDto> Experiences { get; set; }
+        public ICollection<SkillDto> Skills { get; set; }
+        public ICollection<EducationDto> Educations { get; set; }
     }
 }

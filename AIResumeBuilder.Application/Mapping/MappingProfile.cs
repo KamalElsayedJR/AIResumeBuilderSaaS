@@ -29,7 +29,7 @@ namespace AIResumeBuilder.Application.Mapping
 
             CreateMap<AddSkillDto, Skill>();
             CreateMap<UpdateSkillDto, Skill>();
-            CreateMap<Skill, SkillDto>();
+            CreateMap<Skill, SkillDto>().ReverseMap();
 
             CreateMap<AddEducationDto, Education>();
             CreateMap<UpdateEducationDto, Education>();
