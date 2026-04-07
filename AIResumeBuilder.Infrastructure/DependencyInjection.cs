@@ -3,6 +3,8 @@ using AIResumeBuilder.Application.Interfaces.Services;
 using AIResumeBuilder.Infrastructure.Data;
 using AIResumeBuilder.Infrastructure.Implementation.Repositories;
 using AIResumeBuilder.Infrastructure.Implementation.Services;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,8 @@ namespace AIResumeBuilder.Infrastructure
             services.AddScoped<ITokenService,TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IAIService,AIService>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            services.AddScoped<IPdfService, PdfService>();
             return services;
         }
     }

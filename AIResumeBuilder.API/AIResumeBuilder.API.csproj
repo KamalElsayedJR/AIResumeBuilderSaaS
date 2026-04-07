@@ -18,5 +18,9 @@
     <ProjectReference Include="..\AIResumeBuilder.Application\AIResumeBuilder.Application.csproj" />
     <ProjectReference Include="..\AIResumeBuilder.Infrastructure\AIResumeBuilder.Infrastructure.csproj" />
   </ItemGroup>
-
+	<ItemGroup>
+		<None Update="NativeLibraries\libwkhtmltox.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>

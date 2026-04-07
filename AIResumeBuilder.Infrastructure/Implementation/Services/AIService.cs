@@ -85,6 +85,7 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
                 },
             };
             var url = $"{_config["AIAPI:EndPoint"]}{_config["AIAPI:APIKey"]}";
+            await Task.Delay(300); 
             var respone = await _httpClient.PostAsJsonAsync(url, requestBody);
 
             if (!respone.IsSuccessStatusCode)
