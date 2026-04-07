@@ -42,7 +42,7 @@ namespace AIResumeBuilder.API
                     ClockSkew = TimeSpan.Zero
                 };
             });
-            
+            builder.Services.AddHttpClient();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

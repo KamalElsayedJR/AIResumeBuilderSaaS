@@ -78,5 +78,16 @@ namespace AIResumeBuilder.API.Controllers
             return BadRequest(response);
 
         }
+        [AllowAnonymous]
+        [HttpGet("public/{slug}")]
+        public async Task<ActionResult<DataResponse<ResumeDto>>> GetResumeBySlug([FromRoute] string slug)
+        {
+            var response = await _resumeService.GetResumeBySlugAsync(slug);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
     }
 }

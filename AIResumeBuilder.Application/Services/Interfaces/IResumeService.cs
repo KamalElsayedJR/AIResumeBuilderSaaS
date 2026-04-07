@@ -15,6 +15,7 @@ namespace AIResumeBuilder.Application.Services.Interfaces
         public Task<DataResponse<ResumeDto>> GetResumeByIdAsync(int ResumeId, int UserId);
         public Task<DataResponse<ResumeDto>> UpdateResumeAsync(UpdateResumeDto dto,int ResumeId,int UserId);
         public Task<BaseResponse> DeleteResumeAsync(int ResumeId,int UserId);
+        public Task<DataResponse<ResumeDto>> GetResumeBySlugAsync(string slug);
 
     }
 }

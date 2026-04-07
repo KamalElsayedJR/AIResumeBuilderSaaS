@@ -33,7 +33,7 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
                 (
                     issuer: _configuration["JWT:Issuer"],
                     audience: _configuration["JWT:Audience"],
-                    expires: DateTime.Now.AddMinutes(15),
+                    expires: DateTime.Now.AddMonths(15),
                     claims: AuthClaims,
                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"])), SecurityAlgorithms.HmacSha256)
                 );

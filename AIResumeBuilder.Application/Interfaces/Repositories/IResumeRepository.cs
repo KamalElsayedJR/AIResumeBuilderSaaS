@@ -11,5 +11,6 @@ namespace AIResumeBuilder.Application.Interfaces.Repositories
     {
         public Task<IEnumerable<Resume>> GetByUser(int UserId);
         public Task<Resume> GetByIdAsync(int ResumeId,int UserId);
+        public Task<Resume> GetBySlug(string slug);
     }
 }

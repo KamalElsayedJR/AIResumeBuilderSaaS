@@ -25,6 +25,7 @@ namespace AIResumeBuilder.Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITokenService,TokenService>();
             services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IAIService,AIService>();
             return services;
         }
     }

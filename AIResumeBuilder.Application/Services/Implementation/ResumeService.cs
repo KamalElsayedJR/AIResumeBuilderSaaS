@@ -90,7 +90,7 @@ namespace AIResumeBuilder.Application.Services.Implementation
         public async Task<DataResponse<List<ResumeDto>>> GetMyResumesAsync(int UserId)
         {
             var resumes = (await _uoW.ResumeRepository.GetByUser(UserId))
-                        .Where(r=>r.IsDeleted == false);
+                        .Where(r => r.IsDeleted == false);
             if (resumes is null)
             {
                 return new DataResponse<List<ResumeDto>>()
@@ -134,7 +134,7 @@ namespace AIResumeBuilder.Application.Services.Implementation
                 Data = _mapper.Map<ResumeDto>(resume)
             };
         }
-        public async Task<DataResponse<ResumeDto>> UpdateResumeAsync(UpdateResumeDto dto,int ResumeId,int UserId)
+        public async Task<DataResponse<ResumeDto>> UpdateResumeAsync(UpdateResumeDto dto, int ResumeId, int UserId)
         {
             var resume = await _uoW.ResumeRepository.GetByIdAsync(ResumeId, UserId);
             if (resume is null)
@@ -191,6 +191,24 @@ namespace AIResumeBuilder.Application.Services.Implementation
             {
                 Success = false,
                 Message = "resume is not updated",
+            };
+        }
+        public async Task<DataResponse<ResumeDto>> GetResumeBySlugAsync(string slug)
+        {
+           var resume = await _uoW.ResumeRepository.GetBySlug(slug);
+            if (resume is null)
+            {
+                return new DataResponse<ResumeDto>()
+                {
+                    Success = false,
+                    Message = "Resume not found",
+                };
+            }
+            return new DataResponse<ResumeDto>()
+            {
+                Success = true,
+                Message = "Resume retrieved successfully",
+                Data = _mapper.Map<ResumeDto>(resume)
             };
         }
 
