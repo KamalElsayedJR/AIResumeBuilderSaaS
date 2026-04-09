@@ -37,6 +37,7 @@ namespace AIResumeBuilder.Infrastructure.Data.Configurations
                 .WithOne(e => e.Resume)
                 .HasForeignKey(e => e.ResumeId)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

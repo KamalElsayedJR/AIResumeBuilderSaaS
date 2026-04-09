@@ -34,11 +34,13 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Repositories
             }
             return (IGenericRepository<T>)_repo[type];
         }
-        public IEducationRepository EducationRepository { get; set; }
+        public IEducationRepository EducationRepository { get; }
         public IUserRepository UserRepository { get;}
         public IResumeRepository ResumeRepository { get; }
         public IExperienceRepository ExperienceRepository { get; }
         public ISkillRepositroy SkillRepositroy { get; }
+        public IGeneratedResumesRepository GeneratedResumesRepository { get; }
+
         public async Task<int> SaveChangesAsync()
         => await _dbContext.SaveChangesAsync();
     }

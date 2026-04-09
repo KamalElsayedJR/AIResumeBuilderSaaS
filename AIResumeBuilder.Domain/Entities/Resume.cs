@@ -19,6 +19,7 @@ namespace AIResumeBuilder.Domain.Entities
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
         public ICollection<Skill> Skills { get; set; } = new List<Skill>();
         public ICollection<Education> Educations { get; set; } = new List<Education>();
+        public GeneratedResumes GeneratedResumes { get; set; }
         public Resume()
         {
             Slug = Guid.NewGuid().ToString();

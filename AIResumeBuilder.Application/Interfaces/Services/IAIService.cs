@@ -13,5 +13,6 @@ namespace AIResumeBuilder.Application.Interfaces.Services
     public interface IAIService
     {
         Task<DataResponse<AiResponse>> GenerateFullResume(int resumeId,int UserId);
+        Task<DataResponse<AiResponse>> ReGenerateResume(int resumeId,int UserId);
     }
 }

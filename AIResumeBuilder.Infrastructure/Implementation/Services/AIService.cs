@@ -32,6 +32,7 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
             _httpClient = httpClient;
             _config = config;
         }
+
         public async Task<DataResponse<AiResponse>> GenerateFullResume(int resumeId, int UserId)
         {
             var resume = await _uoW.ResumeRepository.GetByIdAsync(resumeId, UserId);
@@ -41,6 +42,17 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
                 {
                     Success = false,
                     Message = "Resume not found",
+                };
+            }
+            var generated = await _uoW.GeneratedResumesRepository.GetGeneratedResumesAsync(resumeId, UserId);
+            if (generated is null) 
+            {
+                var data = JsonSerializer.Deserialize<AiResponse>(generated.Content);
+                return new DataResponse<AiResponse>
+                {
+                    Success = true,
+                    Message = "Resume has already been generated",
+                    Data = data
                 };
             }
             var maaped = _mapper.Map<Resume, ResumeDto>(resume);
@@ -87,7 +99,6 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
             var url = $"{_config["AIAPI:EndPoint"]}{_config["AIAPI:APIKey"]}";
             await Task.Delay(300); 
             var respone = await _httpClient.PostAsJsonAsync(url, requestBody);
-
             if (!respone.IsSuccessStatusCode)
             {
                 var errorContent = await respone.Content.ReadAsStringAsync();
@@ -107,21 +118,47 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
                     Message = "AI API did not return a valid resume",
                 };
             }
-            generatedResume = generatedResume.Replace("```json", "")
-                                                .Replace("```", "")
-                                                .Trim();
+            generatedResume = generatedResume.Replace("```json", "").Replace("```", "").Trim();
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
-
             var aiResume = JsonSerializer.Deserialize<AiResponse>(generatedResume, options);
+            var generatedResumeEntity = new GeneratedResumes
+            {
+                ResumeId = resumeId,
+                UserId = UserId,
+                Content = generatedResume
+            };
+            await _uoW.Repository<GeneratedResumes>().AddAsync(generatedResumeEntity);
+            var saveresult = await _uoW.SaveChangesAsync();
+            if (saveresult <= 0)
+            {
+                return new DataResponse<AiResponse>
+                {
+                    Success = false,
+                    Message = "Failed to save generated resume",
+                };
+            }
             return new DataResponse<AiResponse>
             {
                 Success = true,
                 Message = "Resume generated successfully",
                 Data = aiResume
-            };
+            }; 
+        }
+
+
+        public async Task<DataResponse<AiResponse>> ReGenerateResume(int resumeId, int UserId)
+        {
+            var generated = await _uoW.GeneratedResumesRepository.GetGeneratedResumesAsync(resumeId, UserId);
+            if (generated is not null)
+            {
+                _uoW.Repository<GeneratedResumes>().Delete(generated);
+                await _uoW.SaveChangesAsync();
+            }
+            return await GenerateFullResume(resumeId, UserId);
+
         }
     }
 }

@@ -20,5 +20,6 @@ namespace AIResumeBuilder.Domain.Entities
         public SubscriptionStatus SubscriptionStatus { get; set; } = SubscriptionStatus.Active;
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public ICollection<Resume> Resumes { get; set; } = new List<Resume>();
+        public ICollection<GeneratedResumes> GeneratedResumes { get; set; } 
     }
 }

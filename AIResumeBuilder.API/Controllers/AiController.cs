@@ -21,7 +21,7 @@ namespace AIResumeBuilder.API.Controllers
         private readonly IResumeRenderService _resumeRenderService;
         private readonly IPdfService _pdfService;
 
-        public AiController(IAIService aIService,IResumeRenderService resumeRenderService,IPdfService pdfService)
+        public AiController(IAIService aIService, IResumeRenderService resumeRenderService, IPdfService pdfService)
         {
             _aIService = aIService;
             _resumeRenderService = resumeRenderService;
@@ -63,7 +63,19 @@ namespace AIResumeBuilder.API.Controllers
             }
             var html = _resumeRenderService.GenerateHtml(result.Data);
 
-            return Content(html,"text/html");
+            return Content(html, "text/html");
+        }
+
+        [HttpPost("{id}/regenerate")]
+        public async Task<ActionResult<DataResponse<AiResponse>>> ReGenerateResume(int id)
+        {
+            int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId);
+            var response = await _aIService.ReGenerateResume(id, userId);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
     }
 }
