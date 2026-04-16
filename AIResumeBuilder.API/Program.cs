@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AIResumeBuilder.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
+using Stripe;
 
 namespace AIResumeBuilder.API
 {
@@ -21,6 +22,7 @@ namespace AIResumeBuilder.API
             // Add services to the container.
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddInfrastructure(builder.Configuration);
@@ -52,7 +54,7 @@ namespace AIResumeBuilder.API
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 

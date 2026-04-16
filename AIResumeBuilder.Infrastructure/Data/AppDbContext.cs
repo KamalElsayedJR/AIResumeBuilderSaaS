@@ -25,5 +25,6 @@ namespace AIResumeBuilder.Infrastructure.Data
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Education> Educations { get; set; }
         public DbSet<GeneratedResumes> GeneratedResumes { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 }

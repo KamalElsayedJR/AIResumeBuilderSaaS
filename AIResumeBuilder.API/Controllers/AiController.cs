@@ -1,8 +1,10 @@
 ﻿using AIResumeBuilder.Application.Dtos;
 using AIResumeBuilder.Application.Dtos.AI;
+using AIResumeBuilder.Application.Interfaces.Repositories;
 using AIResumeBuilder.Application.Interfaces.Services;
 using AIResumeBuilder.Application.Services.Interfaces;
 using AIResumeBuilder.Domain.Entities;
+using AIResumeBuilder.Domain.Enums;
 using AIResumeBuilder.Infrastructure.Implementation.Services;
 using Azure;
 using Microsoft.AspNetCore.Authorization;
@@ -20,12 +22,14 @@ namespace AIResumeBuilder.API.Controllers
         private readonly IAIService _aIService;
         private readonly IResumeRenderService _resumeRenderService;
         private readonly IPdfService _pdfService;
+        private readonly IUnitOfWork uoW;
 
-        public AiController(IAIService aIService, IResumeRenderService resumeRenderService, IPdfService pdfService)
+        public AiController(IAIService aIService, IResumeRenderService resumeRenderService, IPdfService pdfService,IUnitOfWork UoW)
         {
             _aIService = aIService;
             _resumeRenderService = resumeRenderService;
             _pdfService = pdfService;
+            uoW = UoW;
         }
         [HttpPost("{id}/generate")]
         public async Task<ActionResult<DataResponse<AiResponse>>> GenerateResume(int id)
@@ -42,6 +46,12 @@ namespace AIResumeBuilder.API.Controllers
         public async Task<ActionResult> GenerateResumepdf(int id)
         {
             int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int userId);
+            var user = await uoW.Repository<User>().GetByIdAsync(userId);
+            if (user.Plan == Plan.Free)
+            {
+                return BadRequest("Upgrade to Pro");
+
+            }
             var result = await _aIService.GenerateFullResume(id, userId);
             if (result is null || !result.Success)
             {
@@ -65,7 +75,6 @@ namespace AIResumeBuilder.API.Controllers
 
             return Content(html, "text/html");
         }
-
         [HttpPost("{id}/regenerate")]
         public async Task<ActionResult<DataResponse<AiResponse>>> ReGenerateResume(int id)
         {

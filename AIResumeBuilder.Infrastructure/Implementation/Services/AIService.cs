@@ -4,6 +4,7 @@ using AIResumeBuilder.Application.Dtos.Resume;
 using AIResumeBuilder.Application.Interfaces.Repositories;
 using AIResumeBuilder.Application.Interfaces.Services;
 using AIResumeBuilder.Domain.Entities;
+using AIResumeBuilder.Domain.Enums;
 using AutoMapper;
 using Azure;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,6 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
         private readonly IMapper _mapper;
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;
-
         public AIService(IUnitOfWork UoW, IMapper mapper, HttpClient httpClient, IConfiguration config)
         {
             _uoW = UoW;
@@ -32,7 +32,6 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
             _httpClient = httpClient;
             _config = config;
         }
-
         public async Task<DataResponse<AiResponse>> GenerateFullResume(int resumeId, int UserId)
         {
             var resume = await _uoW.ResumeRepository.GetByIdAsync(resumeId, UserId);
@@ -44,8 +43,36 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
                     Message = "Resume not found",
                 };
             }
+            var user = await _uoW.Repository<User>().GetByIdAsync(UserId);
+            var count = await _uoW.GeneratedResumesRepository.CountThisMonthAsync(UserId);
+            if (user.Plan == Plan.Free)
+            {
+                if (count >= 2)
+                {
+                    return new DataResponse<AiResponse>
+                    {
+                        Success = false,
+                        Message = "Free plan limit reached. Please upgrade to Pro for unlimited access.",
+                    };
+                }
+            }
+            else
+            {
+                if (count >= 25)
+                {
+                    return new DataResponse<AiResponse>
+                    {
+                        Success = false,
+                        Message = "Pro plan limit reached. Please wait until next month or contact support.",
+                    };
+                }
+            }
+            if (user.SubscriptionEndDate < DateTime.UtcNow)
+            {
+                user.Plan = Plan.Free;
+            }
             var generated = await _uoW.GeneratedResumesRepository.GetGeneratedResumesAsync(resumeId, UserId);
-            if (generated is null) 
+            if (generated is not null) 
             {
                 var data = JsonSerializer.Deserialize<AiResponse>(generated.Content);
                 return new DataResponse<AiResponse>
@@ -147,8 +174,6 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
                 Data = aiResume
             }; 
         }
-
-
         public async Task<DataResponse<AiResponse>> ReGenerateResume(int resumeId, int UserId)
         {
             var generated = await _uoW.GeneratedResumesRepository.GetGeneratedResumesAsync(resumeId, UserId);

@@ -20,9 +20,8 @@ namespace AIResumeBuilder.Infrastructure.Data.Configurations
                 .HasMaxLength(255);
             builder.Property(u => u.HashedPassword).IsRequired();
             builder.Property(u => u.Plan).IsRequired().HasConversion(P => P.ToString(), P => (Plan)Enum.Parse(typeof(Plan), P));
-            builder.Property(u => u.SubscriptionStatus)
-                .IsRequired()
-                .HasConversion(SS => SS.ToString(), P => (SubscriptionStatus)Enum.Parse(typeof(SubscriptionStatus), P));
+
         }
     }
+
 }

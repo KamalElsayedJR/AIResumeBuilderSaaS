@@ -26,7 +26,6 @@ namespace AIResumeBuilder.Infrastructure.Implementation.Services
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.Plan.ToString()),
-                new Claim(ClaimTypes.UserData, user.SubscriptionStatus.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             var token = new JwtSecurityToken

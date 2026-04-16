@@ -28,12 +28,12 @@ namespace AIResumeBuilder.Application.Services.Implementation
         {
             var user = await _uoW.Repository<User>().GetByIdAsync(UserId);
             var userresume = await _uoW.ResumeRepository.GetByUser(UserId);
-            if (user.Plan == Plan.Free && userresume.Count() > 0)
+            if (user.Plan == Plan.Free && userresume.Count() >= 2)
             {
                 return new DataResponse<ResumeDto>()
                 {
                     Success = false,
-                    Message = "Free plan users can only create one resume. Please upgrade to Pro plan to create more resumes."
+                    Message = "Free plan users can only create 2 resume. Please upgrade to Pro plan to create more resumes."
                 };
             }
             var resume = new Resume()

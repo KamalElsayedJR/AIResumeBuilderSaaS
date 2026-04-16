@@ -30,6 +30,7 @@ namespace AIResumeBuilder.Infrastructure
             services.AddScoped<IAIService,AIService>();
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddScoped<IPdfService, PdfService>();
+            services.AddScoped<IPaymentService, StripePaymentService>();
             return services;
         }
     }

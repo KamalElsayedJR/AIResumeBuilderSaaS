@@ -17,9 +17,9 @@ namespace AIResumeBuilder.Domain.Entities
         public int Age { get; set; }
         public string PhoneNumber { get; set; }
         public Plan Plan { get; set; } = Plan.Free;
-        public SubscriptionStatus SubscriptionStatus { get; set; } = SubscriptionStatus.Active;
+        public DateTime? SubscriptionEndDate { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public ICollection<Resume> Resumes { get; set; } = new List<Resume>();
-        public ICollection<GeneratedResumes> GeneratedResumes { get; set; } 
+        public ICollection<GeneratedResumes> GeneratedResumes { get; set; }
     }
 }

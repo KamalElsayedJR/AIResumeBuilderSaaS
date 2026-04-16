@@ -10,5 +10,6 @@ namespace AIResumeBuilder.Application.Interfaces.Repositories
     public interface IGeneratedResumesRepository
     {
         Task<GeneratedResumes?> GetGeneratedResumesAsync(int resumeId,int UserId);
+        Task<int> CountThisMonthAsync(int UserId);
     }
 }

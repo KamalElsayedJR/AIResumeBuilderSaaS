@@ -15,7 +15,6 @@ namespace AIResumeBuilder.Application.Dtos
         public int Age { get; set; }
         public string PhoneNumber { get; set; }
         public Plan Plan { get; set; } = Plan.Free;
-        public SubscriptionStatus SubscriptionStatus { get; set; }
         public DateTime CreateAt { get; set; }
     }
 }
