@@ -1,4 +1,4 @@
-# ?? AI Resume Builder SaaS
+# 🚀 AI Resume Builder SaaS
 
 AI Resume Builder is a production-ready SaaS platform that helps users build, optimize, and export professional resumes using AI.
 
@@ -6,7 +6,7 @@ Built with `ASP.NET Core Web API` and `Clean Architecture`, the platform support
 
 ---
 
-## ? Features
+## ✨ Features
 
 ### Authentication & User Management
 - Secure registration and login with JWT-based authentication
@@ -39,7 +39,7 @@ Built with `ASP.NET Core Web API` and `Clean Architecture`, the platform support
 
 ---
 
-## ?? Tech Stack
+## 🧰 Tech Stack
 
 - **Backend:** `ASP.NET Core 8 Web API`
 - **Architecture:** Clean Architecture + Vertical Slice feature organization
@@ -53,7 +53,7 @@ Built with `ASP.NET Core Web API` and `Clean Architecture`, the platform support
 
 ---
 
-## ??? Architecture Overview
+## 🏗️ Architecture Overview
 
 This solution combines:
 
@@ -71,7 +71,7 @@ This structure keeps the codebase modular, testable, and scalable for SaaS growt
 
 ---
 
-## ?? Project Structure
+## 📁 Project Structure
 
 ```text
 AIResumeBuilder.API/              # Controllers, DTO contracts, Program bootstrap
@@ -92,7 +92,7 @@ Key API controllers:
 
 ---
 
-## ?? Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 - `.NET SDK 8.0+`
@@ -135,7 +135,7 @@ Navigate to the Swagger URL shown at startup (typically `https://localhost:<port
 
 ---
 
-## ?? Environment Variables
+## 🔐 Environment Variables
 
 Use environment variables for secrets in production:
 
@@ -153,7 +153,7 @@ Use environment variables for secrets in production:
 
 ---
 
-## ?? API Endpoints Overview
+## 📌 API Endpoints Overview
 
 ### Auth
 - `POST /api/Auth/register`
@@ -196,7 +196,7 @@ Use environment variables for secrets in production:
 
 ---
 
-## ?? Authentication Flow (JWT)
+## 🔑 Authentication Flow (JWT)
 
 1. User registers using `/api/Auth/register`.
 2. User logs in via `/api/Auth/login`.
@@ -207,7 +207,7 @@ Use environment variables for secrets in production:
 
 ---
 
-## ??? Database Design Overview
+## 🗄️ Database Design Overview
 
 Core entities:
 - `User`
@@ -219,8 +219,8 @@ Core entities:
 - `Payment`
 
 High-level relationships:
-- One `User` ? many `Resume`
-- One `Resume` ? many `Education`, `Experience`, `Skill`
+- One `User` → many `Resume`
+- One `Resume` → many `Education`, `Experience`, `Skill`
 - Generated content tracked per `Resume` and `User`
 - Payments linked to `User` and Stripe metadata (event/session IDs)
 
@@ -230,7 +230,7 @@ Additional design notes:
 
 ---
 
-## ?? Feature Gating (Free vs Pro)
+## 🧩 Feature Gating (Free vs Pro)
 
 Current gating model:
 - **Free Plan**
@@ -244,7 +244,7 @@ Usage is enforced server-side (not only in UI), which makes plan restrictions re
 
 ---
 
-## ?? AI Integration
+## 🤖 AI Integration
 
 Resume generation flow (conceptual):
 1. User creates and fills resume sections.
@@ -256,7 +256,7 @@ Resume generation flow (conceptual):
 
 ---
 
-## ?? Payment Integration
+## 💳 Payment Integration
 
 The billing flow uses Stripe Checkout:
 - `POST /api/Payment/upgrade` creates a checkout session
@@ -266,8 +266,21 @@ The billing flow uses Stripe Checkout:
 - Event idempotency is enforced via `StripeEventId` checks
 
 ---
+## 📸 Screenshots
 
-## ??? Future Improvements / Roadmap
+### 🗄️ Database Design
+![Database Design](./assets/databaseDesign.png)
+
+### 📘 API Documentation (Swagger)
+![Swagger](./assets/swagger.png)
+
+### 🔐 Authentication Flow (Login)
+![Login](./assets/login.png)
+
+### 📄 AI Resume PDF Generation
+![PDF Generation](./assets/pdfgenerate.png)
+---
+## 🛣️ Future Improvements / Roadmap
 
 - Frontend dashboard (React/Next.js) with resume templates
 - Team/workspace accounts for recruiters and agencies
@@ -279,7 +292,7 @@ The billing flow uses Stripe Checkout:
 
 ---
 
-## ?? Contributing
+## 🤝 Contributing
 
 Contributions are welcome.
 
@@ -295,15 +308,7 @@ Recommended:
 
 ---
 
-## ?? License
-
-No license file is currently defined in this repository.
-
-If you plan to distribute or accept external contributions, add a `LICENSE` file (for example, MIT) to clarify usage rights.
-
----
-
-## ?? Sample API Request
+## 📬 Sample API Request
 
 ```bash
 curl -X POST "https://localhost:5001/api/Auth/login" \
